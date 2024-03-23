@@ -1,17 +1,25 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: frontend-ingress
 spec:
+  ingressClassName: nginx
   rules:
-  - http:
+  - host: kbp.localdev.me
+    http:
       paths:
       - path: /api
+        pathType: Prefix
         backend:
-          serviceName: frontend
-          servicePort: 8080
+          service:
+            name: frontend
+            port:
+              number: 8080
       # NOTE: this should come after /api or else it will hijack requests
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: nginx
-          servicePort: 80
+          service:
+            name: fileserver
+            port:
+              number: 80
