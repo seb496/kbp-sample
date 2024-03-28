@@ -1,0 +1,6 @@
+apiVersion: v2
+name: journal
+description: Journal application, with nginx fileserver and redis DB
+type: application
+version: 0.1.0
+appVersion: "1.0"

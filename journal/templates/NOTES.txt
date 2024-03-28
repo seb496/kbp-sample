@@ -1,0 +1,2 @@
+URL for the NGINX server: http://{{ .Values.externalDns }}:{{ .Values.externalHttpPort }}/
+URL for the application:  http://{{ .Values.externalDns }}:{{ .Values.externalHttpPort }}/api

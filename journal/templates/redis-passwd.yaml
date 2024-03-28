@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Release.Name }}-redis-passwd
+type: Opaque
+data:
+  passwd: {{ randAlphaNum 20 }}
