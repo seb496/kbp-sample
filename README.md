@@ -1,5 +1,15 @@
 # Kubernetes best practices
 
+## Network layers
+
+Network path for <http://kbp.localdev.me:8080/>
+
+* Windows: listen on port 8080
+* WSL podman machine: 8080 mapped to port 80 on kbp-worker container. See podman ps
+* kbp-worker container: 80 mapped to port 80 on ingress-nginx-controller-xx pod. See crictl inspectp. Does not appear in lsof / netstat.
+* ingress: kbp.localdev.me/api mapped to frontend service port 8080
+* ingress: kbp.localdev.me/ mapped to fileserver service port 80
+
 ## Cluster setup
 
 ```shell
@@ -32,15 +42,14 @@ podman build -t fileserver:v2 fileserver
 TempFile=$(mktemp)
 $TempFile = New-TemporaryFile
 podman save fileserver:v2 > $TempFile
-kind load image-archive --name kbp $TempFile
+kind load image-archive --name kbp2 $TempFile
 rm $TempFile
-remove-item $TempFile
 
 kubectl apply -f fileserver.yaml
 kubectl apply -f fileserver-svc.yaml
 
-curl kbp.localdev.me:8080/api
-curl kbp.localdev.me:8080/
+curl http://kbp.localdev.me:8080/api
+curl http://kbp.localdev.me:8080/
 
 ```
 
