@@ -7,9 +7,9 @@ nodes:
 - role: worker
   #image: dockerhub.rnd.amadeus.net/devenv-docker-dev-devenv-exp-nce/patched-kind:v1.27.3
   extraPortMappings:
-  - containerPort: 80
+  - containerPort: 32080
     hostPort: 9080
-  - containerPort: 443
+  - containerPort: 32443
     hostPort: 2443
   labels:
     ingress-ready: true

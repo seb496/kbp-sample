@@ -19,7 +19,7 @@ helm repo update
 kind delete cluster -n kbp2
 
 kind create cluster --name kbp2 --config kbp2.yaml
-helm upgrade --install --namespace ingress-nginx --create-namespace ingress-nginx ingress-nginx/ingress-nginx --set controller.service.enabled=false --set controller.hostPort.enabled=true --kube-context kind-kbp2
+helm upgrade --install --namespace ingress-nginx --create-namespace ingress-nginx ingress-nginx/ingress-nginx --set controller.service.type=NodePort --set controller.service.nodePorts.http=32080 --set controller.service.nodePorts.https=32443 --kube-context kind-kbp2
 
 kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=90s --context kind-kbp2
 ```
